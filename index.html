@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Niyati General Store - Your Everyday Needs</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .tagline {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .whatsapp-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #25D366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .whatsapp-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 40px rgba(37, 211, 102, 0.6);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .product-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 1rem;
+        }
+
+        .stock-in {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #4CAF50;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .stock-out {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #f44336;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .product-name {
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #e74c3c;
+            margin-bottom: 0.5rem;
+        }
+
+        .quantity {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .add-cart {
+            width: 100%;
+            padding: 0.8rem;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .add-cart:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .add-cart:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .stats {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat-item {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            header {
+                padding: 1.5rem;
+            }
+
+            .logo {
+                font-size: 2rem;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .whatsapp-btn {
+                bottom: 20px;
+                right: 20px;
+                width: 55px;
+                height: 55px;
+                font-size: 1.6rem;
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="fade-in">
+            <h1 class="logo">Niyati General Store</h1>
+            <p class="tagline">Everything you need, just a click away!</p>
+        </header>
+
+        <div class="products-grid" id="productsGrid">
+            <!-- Products will be populated by JavaScript -->
+        </div>
+
+        <div class="stats fade-in">
+            <div class="stat-item">
+                <div class="stat-number" id="totalProducts">12</div>
+                <div class="stat-label">Total Products</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="inStock">10</div>
+                <div class="stat-label">In Stock</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="cartCount">0</div>
+                <div class="stat-label">In Cart</div>
+            </div>
+        </div>
+    </div>
+
+    <a href="https://wa.me/919876543210?text=Hi! I want to order from Niyati General Store 📦" 
+       class="whatsapp-btn" target="_blank" title="Contact us on WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script>
+        const products = [
+            { id: 1, name: "Premium Rice (5kg)", price: "₹250", quantity: "50kg available", stock: true, image: "https://images.unsplash.com/photo-1587014611671-bff9bb85b665?w=400&h=300&fit=crop" },
+            { id: 2, name: "Fresh Atta (1kg)", price: "₹65", quantity: "100 packets", stock: true, image: "https://images.unsplash.com/photo-1603048297194-8f7d9e7f8e7d?w=400&h=300&fit=crop" },
+            { id: 3, name: "Cooking Oil (1L)", price: "₹140", quantity: "Out of Stock", stock: false, image: "https://images.unsplash.com/photo-1603048297194-8f7d9e7f8e7d?w=400&h=300&fit=crop" },
+            { id: 4, name: "Dalda Ghee (500g)", price: "₹320", quantity: "25 jars", stock: true, image: "https://images.unsplash.com/photo-1587014611671-bff9bb85b665?w=400&h=300&fit=crop" },
+            { id: 5, name: "Sugar (5kg)", price: "₹220", quantity: "75 bags", stock: true, image: "https://images.unsplash.com/photo-1574545543439-27f6c6a3e12f?w=400&h=300&fit=crop" },
+            { id: 6, name: "Toor Dal (1kg)", price: "₹145", quantity: "40 packets", stock: true, image: "https://images.unsplash.com/photo-1603048297194-8f7d9e7f8e7d?w=400&h=300&fit=crop" },
+            { id: 7, name: "Sunflower Oil (5L)", price: "₹650", quantity: "15 cans", stock: true, image: "https://images.unsplash.com/photo-1603048297194-8f7d9e7f8e7d?w=400&h=300&fit=crop" },
+            { id: 8, name: "Milk Powder (500g)", price: "₹280", quantity: "Out of Stock", stock: false, image: "https://images.unsplash.com/photo-1574545543439-27f6c6a3e12f?w=400&h=300&fit=crop" },
+            { id: 9, name: "Basmati Rice (5kg)", price: "₹420", quantity: "30 bags", stock: true, image: "https://images.unsplash.com/photo-1587014611671-bff9bb85b665?w=400&h=300&fit=crop" },
+            { id: 10, name: "Moong Dal (1kg)", price: "₹165", quantity: "35 packets", stock: true, image: "https://images.unsplash.com/photo-1603048297194-8f7d9e7f8e7d?w=400&h=300&fit=crop" },
+            { id: 11, name: "Salt (1kg)", price: "₹25", quantity: "100 packets", stock: true, image: "https://images.unsplash.com/photo-1574545543439-27f6c6a3e12f?w=400&h=300&fit=crop" },
+            { id: 12, name: "Tea Powder (250g)", price: "₹95", quantity: "45 packets", stock: true, image: "https://images.unsplash.com/photo-1574545543439-27f6c6a3e12f?w=400&h=300&fit=crop" }
+        ];
+
+        let cart = [];
+
+        function renderProducts() {
+            const grid = document.getElementById('productsGrid');
+            grid.innerHTML = '';
+
+            products.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card fade-in';
+                productCard.innerHTML = `
+                    ${product.stock ? 
+                        '<div class="stock-in"><i class="fas fa-check"></i> In Stock</div>' : 
+                        '<div class="stock-out"><i class="fas fa-times"></i> Out of Stock</div>'
+                    }
+                    <img src="${product.image}" alt="${product.name}" class="product-image">
+                    <h3 class="product-name">${product.name}</h3>
+                    <div class="product-price">${product.price}</div>
+                    <div class="quantity">${product.quantity}</div>
+                    <button class="add-cart" onclick="addToCart(${product.id})" ${!product.stock ? 'disabled' : ''}>
+                        ${product.stock ? '<i class="fas fa-shopping-cart"></i> Add to Cart' : 'Out of Stock'}
+                    </button>
+                `;
+                grid.appendChild(productCard);
+            });
+
+            updateStats();
+        }
+
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            cart.push(product);
+            updateStats();
+            
+            // Simple notification
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed; top: 20px; right: 20px; background: #4CAF50; 
+                color: white; padding: 1rem 2rem; border-radius: 10px; 
+                z-index: 1001; font-weight: bold; transform: translateX(400px);
+                transition: all 0.3s ease;
+            `;
+            notification.textContent = `${product.name} added to cart!`;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        function updateStats() {
+            document.getElementById('totalProducts').textContent = products.length;
+            document.getElementById('inStock').textContent = products.filter(p => p.stock).length;
+            document.getElementById('cartCount').textContent = cart.length;
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProducts();
+        });
+
+        // Smooth scrolling for mobile
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
